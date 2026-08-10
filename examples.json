@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "wan-animate-2-official-demo1",
+      "repository": "https://github.com/Wan-Video/Wan-Animate-2",
+      "revision": "3ad2fef7d61d6200c9c653e0fe47be7616b323f3",
+      "license": "Apache-2.0",
+      "files": {
+        "prompt.txt": "02983bfd92d8383e2b13cd4a06dfbf7d9fdfe38a22a898198e4fdf240e9318bb",
+        "reference.png": "f4a0eb00f08f15d8b2cf14e37ed6e284473e34c5f04dad6e8681484cbada9521",
+        "template.mp4": "d13cde551b5aaa365a83d9321e75b2694b74713c6b0ea1c8feda44070f6b1ee3"
+      }
+    }
+  ],
+  "excluded_sources": [
+    {
+      "url": "https://www.kaggle.com/datasets/tapakah68/segmentation-full-body-tiktok-dancing-dataset",
+      "reason": "CC BY-NC-ND 4.0 and distributed as segmentation images rather than reusable raw driving videos; do not publish to a commercial product bucket"
+    }
+  ]
+}

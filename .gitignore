@@ -1,0 +1,14 @@
+.cog/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.mp4
+*.webm
+*.png
+*.jpg
+*.jpeg
+outputs/
+examples/official-demo1/

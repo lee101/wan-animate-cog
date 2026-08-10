@@ -1,0 +1,26 @@
+image: "ghcr.io/lee101/wan-animate-cog"
+build:
+  gpu: true
+  cuda: "12.8"
+  python_version: "3.10"
+  sdk_version: "0.21.0"
+  system_packages:
+    - "ffmpeg"
+    - "git"
+    - "libgl1"
+    - "libglib2.0-0"
+  run:
+    # This supported Cog base already carries the CUDA 12.8 runtime. The
+    # no-deps wheels avoid duplicating several GiB of nvidia-* packages.
+    - "pip install --no-cache-dir --no-deps --index-url https://download.pytorch.org/whl/cu128 torch==2.8.0 torchvision==0.23.0"
+    # These two libraries are not present in the generic Cog CUDA base and are
+    # loaded eagerly by the PyTorch wheel; the remaining CUDA libraries are.
+    - "pip install --no-cache-dir --no-deps nvidia-cusparselt-cu12==0.7.1 nvidia-nccl-cu12==2.27.3"
+    - "pip install --no-cache-dir --no-deps triton==3.4.0"
+    # Wan-Animate-2 support is still in upstream Diffusers PR #14412. Pin the
+    # reviewed PR head instead of following a mutable branch.
+    - "pip install --no-cache-dir --no-deps 'git+https://github.com/huggingface/diffusers.git@14f482c30c91021cc0e363a0a17a115b44972aee' transformers==5.15.0 accelerate==1.14.0 torchao==0.15.0"
+    # Install the explicit runtime graph without asking pip to re-resolve
+    # Torch's nvidia-* wheels; CUDA/cuDNN/NCCL are supplied by the Cog base.
+    - "pip install --no-cache-dir av==15.1.0 decord==0.6.0 'huggingface-hub[hf-xet]==1.27.0' numpy==2.2.6 opencv-python-headless==4.12.0.88 pillow==11.3.0 runpod==1.7.13 tokenizers==0.22.2 safetensors==0.8.0 regex==2026.7.19 filelock==3.32.2 packaging==26.3 tqdm==4.70.0 psutil==7.2.2 httpx==0.28.1 importlib-metadata==9.0.0 typer==0.27.1 jinja2==3.1.6 sympy==1.14.0 networkx==3.4.2"
+run: "run.py:Runner"

@@ -1,0 +1,49 @@
+name: test-and-publish
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -e '.[dev]'
+      - run: python -m pytest
+      - run: ruff check .
+
+  publish:
+    if: github.event_name == 'push'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: replicate/setup-cog@v2
+        with:
+          cog-version: "v0.21.0"
+      - name: Build and publish
+        run: |
+          image=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/wan-animate-cog
+          tag="$image:${GITHUB_REF_NAME//\//-}"
+          cog build -t "$tag"
+          docker push "$tag"
+          if [[ "$GITHUB_REF_NAME" == "main" ]]; then
+            docker tag "$tag" "$image:latest"
+            docker push "$image:latest"
+          fi
