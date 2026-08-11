@@ -12,7 +12,7 @@ The runtime is quality-first:
 - native Wan-Animate-2 reference K/V caching is retained;
 - repeated prompt embeddings are cached across warm requests;
 - PyTorch fused SDPA replaces the optional FlashAttention extension when unavailable, while upstream's compiled sparse FlexAttention remains active;
-- VAE slicing/tiling and persistent Hugging Face/TorchInductor caches reduce memory and cold-start work;
+- block-level CPU offload, VAE slicing/tiling, and persistent Hugging Face/TorchInductor caches reduce memory and cold-start work;
 - experimental confidence-gated Taylor prediction is available but **off by default** until identity, motion, and frame-quality A/B tests pass.
 
 The default deployment target is one 48 GiB Ada GPU (L40/L40S/RTX 6000 Ada), not an H100. BF16 mode requires CPU offload or a larger GPU.

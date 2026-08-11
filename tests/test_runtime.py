@@ -16,3 +16,6 @@ def test_fp8_uses_per_tensor_scaling_for_fp32_conditioning_activations():
 def test_model_cpu_offload_is_enabled_by_default():
     source = (Path(__file__).parents[1] / "runtime.py").read_text()
     assert '_env_bool("WAN_CPU_OFFLOAD", True)' in source
+    assert "enable_group_offload(" in source
+    assert 'offload_type="block_level"' in source
+    assert "num_blocks_per_group=1" in source

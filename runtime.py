@@ -93,7 +93,13 @@ class WanAnimateRuntime:
 
         cpu_offload = _env_bool("WAN_CPU_OFFLOAD", True)
         if cpu_offload:
-            self.pipeline.enable_model_cpu_offload()
+            self.pipeline.enable_group_offload(
+                onload_device=self.device,
+                offload_device=torch.device("cpu"),
+                offload_type="block_level",
+                num_blocks_per_group=1,
+                use_stream=False,
+            )
         else:
             self.pipeline.to(self.device)
         if hasattr(self.pipeline.vae, "enable_slicing"):
