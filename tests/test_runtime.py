@@ -22,4 +22,4 @@ def test_model_cpu_offload_is_enabled_by_default():
 
 def test_preview_area_fits_l40s_activation_budget():
     source = (Path(__file__).parents[1] / "runtime.py").read_text()
-    assert '"preview": (576, 432)' in source
+    assert '"preview": (512, 384)' in source
