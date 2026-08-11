@@ -160,7 +160,7 @@ class WanAnimateRuntime:
             self.taylor.enabled = bool(cgtaylor)
             torch.cuda.reset_peak_memory_stats()
             started = time.perf_counter()
-            with torch.inference_mode():
+            with torch.no_grad():
                 output = self.pipeline(
                     image=reference,
                     driving_video=str(normalized),
