@@ -11,3 +11,8 @@ def test_fp8_uses_per_tensor_scaling_for_fp32_conditioning_activations():
     source = (Path(__file__).parents[1] / "runtime.py").read_text()
     assert "granularity=PerTensor()" in source
     assert "granularity=PerRow()" not in source
+
+
+def test_model_cpu_offload_is_enabled_by_default():
+    source = (Path(__file__).parents[1] / "runtime.py").read_text()
+    assert '_env_bool("WAN_CPU_OFFLOAD", True)' in source

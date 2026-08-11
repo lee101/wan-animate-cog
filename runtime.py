@@ -91,7 +91,7 @@ class WanAnimateRuntime:
             use_safetensors=True,
         )
 
-        cpu_offload = _env_bool("WAN_CPU_OFFLOAD", self.quant == "bf16")
+        cpu_offload = _env_bool("WAN_CPU_OFFLOAD", True)
         if cpu_offload:
             self.pipeline.enable_model_cpu_offload()
         else:

@@ -63,6 +63,7 @@ Recommended environment:
 
 ```text
 WAN_QUANT=fp8
+WAN_CPU_OFFLOAD=true
 WAN_MODEL_CACHE=/runpod-volume/huggingface
 HF_HOME=/runpod-volume/huggingface
 TORCHINDUCTOR_CACHE_DIR=/runpod-volume/torchinductor
