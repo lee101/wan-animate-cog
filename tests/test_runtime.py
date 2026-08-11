@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def test_pipeline_uses_no_grad_tensors_for_mutable_diffusers_state():
     source = (Path(__file__).parents[1] / "runtime.py").read_text()
     assert "with torch.no_grad():" in source
@@ -19,3 +18,8 @@ def test_model_cpu_offload_is_enabled_by_default():
     assert "enable_group_offload(" in source
     assert 'offload_type="block_level"' in source
     assert "num_blocks_per_group=1" in source
+
+
+def test_preview_area_fits_l40s_activation_budget():
+    source = (Path(__file__).parents[1] / "runtime.py").read_text()
+    assert '"preview": (576, 432)' in source

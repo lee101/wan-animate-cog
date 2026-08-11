@@ -22,7 +22,7 @@ MODEL_ID = os.getenv("WAN_MODEL_ID", "Wan-AI/Wan2.2-Animate-2-14B-Distilled-Diff
 MODEL_REVISION = os.getenv("WAN_MODEL_REVISION", "36b185201c469c756601cb0779f6597dda1d6c01")
 
 QUALITY_AREAS = {
-    "preview": (640, 480),
+    "preview": (576, 432),
     "balanced": (800, 640),
     "high": (1280, 720),
 }
