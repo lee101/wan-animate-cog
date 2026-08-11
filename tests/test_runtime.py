@@ -5,3 +5,9 @@ def test_pipeline_uses_no_grad_tensors_for_mutable_diffusers_state():
     source = (Path(__file__).parents[1] / "runtime.py").read_text()
     assert "with torch.no_grad():" in source
     assert "torch.inference_mode()" not in source
+
+
+def test_fp8_uses_per_tensor_scaling_for_fp32_conditioning_activations():
+    source = (Path(__file__).parents[1] / "runtime.py").read_text()
+    assert "granularity=PerTensor()" in source
+    assert "granularity=PerRow()" not in source

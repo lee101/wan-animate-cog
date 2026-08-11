@@ -43,9 +43,9 @@ def _quantization_config(mode: str):
 
     if mode == "fp8":
         from torchao.quantization import Float8DynamicActivationFloat8WeightConfig
-        from torchao.quantization.granularity import PerRow
+        from torchao.quantization.granularity import PerTensor
 
-        config = Float8DynamicActivationFloat8WeightConfig(granularity=PerRow())
+        config = Float8DynamicActivationFloat8WeightConfig(granularity=PerTensor())
     elif mode == "int8":
         from torchao.quantization import Int8WeightOnlyConfig
 

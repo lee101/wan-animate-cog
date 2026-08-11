@@ -7,7 +7,7 @@ It animates a reference character from a raw driving video—no pose or face pre
 The runtime is quality-first:
 
 - the upstream distilled 10-step Euler trajectory with CFG disabled is the default;
-- TorchAO row-wise dynamic FP8 reduces the 30.5 GiB BF16 transformer to an Ada-friendly footprint;
+- TorchAO dynamic FP8 reduces the 30.5 GiB BF16 transformer to an Ada-friendly footprint;
 - the remaining encoders and VAE stay BF16;
 - native Wan-Animate-2 reference K/V caching is retained;
 - repeated prompt embeddings are cached across warm requests;
