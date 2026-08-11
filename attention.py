@@ -28,7 +28,7 @@ def sdpa_varlen_attention(
 ) -> torch.Tensor:
     """Match upstream's ``flash_attention`` contract with fused torch SDPA."""
     del deterministic
-    if window_size != (-1, -1):
+    if tuple(window_size) != (-1, -1):
         raise ValueError("the SDPA fallback only supports full attention")
     if q_scale is not None:
         q = q * q_scale

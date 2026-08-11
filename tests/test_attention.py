@@ -14,6 +14,7 @@ def test_sdpa_fallback_preserves_upstream_shape_and_zero_pads_short_queries():
         v,
         q_lens=torch.tensor([3]),
         k_lens=torch.tensor([4]),
+        window_size=[-1, -1],
         dtype=torch.float32,
     )
     assert output.shape == q.shape
