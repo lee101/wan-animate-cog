@@ -224,4 +224,7 @@ def media_artifact(path: Path) -> dict[str, str]:
 
 
 def temporary_directory(prefix: str = "wan-animate-"):
-    return tempfile.TemporaryDirectory(prefix=prefix, dir=os.getenv("TMPDIR") or None)
+    configured = os.getenv("TMPDIR")
+    if configured:
+        Path(configured).mkdir(parents=True, exist_ok=True)
+    return tempfile.TemporaryDirectory(prefix=prefix, dir=configured or None)

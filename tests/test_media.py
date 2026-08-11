@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 
-from media import encode_video, media_artifact, normalize_driving_video, probe_video
+from media import encode_video, media_artifact, normalize_driving_video, probe_video, temporary_directory
 
 
 def test_encode_and_normalize_short_video(tmp_path: Path):
@@ -33,3 +33,12 @@ def test_media_artifact_is_typed_base64(tmp_path: Path):
         "data": "dmlkZW8=",
         "content_type": "video/mp4",
     }
+
+
+def test_temporary_directory_creates_configured_root(tmp_path: Path, monkeypatch):
+    configured = tmp_path / "network-volume" / "tmp"
+    monkeypatch.setenv("TMPDIR", str(configured))
+    with temporary_directory("serverless-") as generated:
+        assert Path(generated).parent == configured
+        assert Path(generated).is_dir()
+    assert configured.is_dir()
